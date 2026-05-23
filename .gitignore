@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / editor cruft
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Build / dist
+dist/
+build/
+
+# Local state
+.env
+.env.local
+.openclaude/
+
+# Claude Code user-local settings (project slash commands under .claude/commands/ are committed)
+.claude/settings.local.json
+.claude/projects/
+.claude/todos/
+.claude/statsig/
+.claude/shell-snapshots/

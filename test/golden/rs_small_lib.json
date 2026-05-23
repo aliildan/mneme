@@ -1,0 +1,90 @@
+{
+  "symbols": [
+    {
+      "name": "Config",
+      "kind": "class",
+      "container": null,
+      "start_line": 4,
+      "end_line": 7,
+      "start_byte": 46,
+      "end_byte": 108,
+      "exported": 1,
+      "signature": "pub struct Config {",
+      "doc": null
+    },
+    {
+      "name": "Status",
+      "kind": "enum",
+      "container": null,
+      "start_line": 9,
+      "end_line": 12,
+      "start_byte": 110,
+      "end_byte": 156,
+      "exported": 1,
+      "signature": "pub enum Status {",
+      "doc": null
+    },
+    {
+      "name": "Handler",
+      "kind": "interface",
+      "container": null,
+      "start_line": 14,
+      "end_line": 16,
+      "start_byte": 158,
+      "end_byte": 223,
+      "exported": 1,
+      "signature": "pub trait Handler {",
+      "doc": null
+    },
+    {
+      "name": "new_config",
+      "kind": "function",
+      "container": null,
+      "start_line": 18,
+      "end_line": 23,
+      "start_byte": 225,
+      "end_byte": 344,
+      "exported": 1,
+      "signature": "pub fn new_config(host: &str, port: u16) -> Config {",
+      "doc": null
+    },
+    {
+      "name": "Config",
+      "kind": "class",
+      "container": null,
+      "start_line": 25,
+      "end_line": 29,
+      "start_byte": 346,
+      "end_byte": 449,
+      "exported": 0,
+      "signature": "impl Config {",
+      "doc": null
+    },
+    {
+      "name": "addr",
+      "kind": "function",
+      "container": null,
+      "start_line": 26,
+      "end_line": 28,
+      "start_byte": 364,
+      "end_byte": 447,
+      "exported": 1,
+      "signature": "pub fn addr(&self) -> String {",
+      "doc": null
+    }
+  ],
+  "edges": [
+    {
+      "dst_name": "std::collections::HashMap",
+      "kind": "imports",
+      "raw_target": "std::collections::HashMap"
+    },
+    {
+      "dst_name": "std::fmt",
+      "kind": "imports",
+      "raw_target": "std::fmt"
+    }
+  ],
+  "parseOk": true,
+  "parseError": null
+}

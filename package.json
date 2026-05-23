@@ -1,0 +1,26 @@
+{
+  "name": "mneme",
+  "version": "0.1.0",
+  "description": "Local context and memory engine for AI coding agents — MCP server companion to openclaude.",
+  "type": "module",
+  "bin": {
+    "mneme": "bin/mneme",
+    "mn": "bin/mneme"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "files": ["bin", "src", "vendor", "slash-commands", "README.md"],
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test test/parse-ts.test.js test/merkle-invalidate.test.js test/rank.test.js test/budget.test.js test/mcp-smoke.test.js test/memory-roundtrip.test.js test/global-scope-isolation.test.js test/promote-explicit.test.js test/openclaude-client.test.js test/discovery-runner.test.js test/discovery-opus-excluded.test.js test/outcomes.test.js test/graph-callers.test.js test/cross-project.test.js test/gc.test.js test/lang-python.test.js test/lang-go.test.js test/lang-rust.test.js test/lang-php.test.js test/lang-csharp.test.js test/multi-language-pipeline.test.js test/gitignore-respect.test.js test/touch-command.test.js test/dirty-marker.test.js test/install-hook.test.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@noble/hashes": "^1.4.0",
+    "better-sqlite3": "^11.0.0",
+    "ignore": "^6.0.0",
+    "tree-sitter-wasms": "^0.1.10",
+    "web-tree-sitter": "^0.24.4"
+  }
+}

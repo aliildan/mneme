@@ -1,0 +1,102 @@
+{
+  "symbols": [
+    {
+      "name": "hash_password",
+      "kind": "function",
+      "container": null,
+      "start_line": 5,
+      "end_line": 6,
+      "start_byte": 45,
+      "end_byte": 142,
+      "exported": 1,
+      "signature": "def hash_password(password: str) -> str:",
+      "doc": null
+    },
+    {
+      "name": "AuthService",
+      "kind": "class",
+      "container": null,
+      "start_line": 9,
+      "end_line": 14,
+      "start_byte": 145,
+      "end_byte": 386,
+      "exported": 1,
+      "signature": "class AuthService:",
+      "doc": null
+    },
+    {
+      "name": "register",
+      "kind": "function",
+      "container": "AuthService",
+      "start_line": 10,
+      "end_line": 11,
+      "start_byte": 168,
+      "end_byte": 296,
+      "exported": 1,
+      "signature": "def register(self, username: str, password: str) -> dict:",
+      "doc": null
+    },
+    {
+      "name": "login",
+      "kind": "function",
+      "container": "AuthService",
+      "start_line": 13,
+      "end_line": 14,
+      "start_byte": 302,
+      "end_byte": 386,
+      "exported": 1,
+      "signature": "def login(self, username: str, password: str) -> Optional[dict]:",
+      "doc": null
+    },
+    {
+      "name": "cached",
+      "kind": "function",
+      "container": null,
+      "start_line": 17,
+      "end_line": 18,
+      "start_byte": 389,
+      "end_byte": 418,
+      "exported": 1,
+      "signature": "def cached(fn):",
+      "doc": null
+    },
+    {
+      "name": "get_user",
+      "kind": "function",
+      "container": null,
+      "start_line": 21,
+      "end_line": 23,
+      "start_byte": 421,
+      "end_byte": 491,
+      "exported": 1,
+      "signature": "@cached",
+      "doc": null
+    },
+    {
+      "name": "get_user",
+      "kind": "function",
+      "container": null,
+      "start_line": 22,
+      "end_line": 23,
+      "start_byte": 429,
+      "end_byte": 491,
+      "exported": 1,
+      "signature": "def get_user(username: str) -> Optional[dict]:",
+      "doc": null
+    }
+  ],
+  "edges": [
+    {
+      "dst_name": "hashlib",
+      "kind": "imports",
+      "raw_target": "hashlib"
+    },
+    {
+      "dst_name": "typing",
+      "kind": "imports",
+      "raw_target": "typing"
+    }
+  ],
+  "parseOk": true,
+  "parseError": null
+}

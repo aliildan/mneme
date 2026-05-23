@@ -1,0 +1,66 @@
+{
+  "symbols": [
+    {
+      "name": "Config",
+      "kind": "type_alias",
+      "container": null,
+      "start_line": 8,
+      "end_line": 11,
+      "start_byte": 47,
+      "end_byte": 92,
+      "exported": 1,
+      "signature": "type Config struct {",
+      "doc": null
+    },
+    {
+      "name": "Handler",
+      "kind": "type_alias",
+      "container": null,
+      "start_line": 13,
+      "end_line": 15,
+      "start_byte": 94,
+      "end_byte": 171,
+      "exported": 1,
+      "signature": "type Handler interface {",
+      "doc": null
+    },
+    {
+      "name": "NewConfig",
+      "kind": "function",
+      "container": null,
+      "start_line": 17,
+      "end_line": 19,
+      "start_byte": 173,
+      "end_byte": 262,
+      "exported": 1,
+      "signature": "func NewConfig(host string, port int) *Config {",
+      "doc": null
+    },
+    {
+      "name": "Addr",
+      "kind": "method",
+      "container": null,
+      "start_line": 21,
+      "end_line": 23,
+      "start_byte": 264,
+      "end_byte": 343,
+      "exported": 1,
+      "signature": "func (c *Config) Addr() string {",
+      "doc": null
+    }
+  ],
+  "edges": [
+    {
+      "dst_name": "fmt",
+      "kind": "imports",
+      "raw_target": "fmt"
+    },
+    {
+      "dst_name": "net/http",
+      "kind": "imports",
+      "raw_target": "net/http"
+    }
+  ],
+  "parseOk": true,
+  "parseError": null
+}

@@ -1,0 +1,143 @@
+{
+  "symbols": [
+    {
+      "name": "IAuthService",
+      "kind": "interface",
+      "container": null,
+      "start_line": 7,
+      "end_line": 10,
+      "start_byte": 102,
+      "end_byte": 196,
+      "exported": 1,
+      "signature": "public interface IAuthService",
+      "doc": null
+    },
+    {
+      "name": "LoginAsync",
+      "kind": "method",
+      "container": null,
+      "start_line": 9,
+      "end_line": 9,
+      "start_byte": 138,
+      "end_byte": 194,
+      "exported": 0,
+      "signature": "Task<bool> LoginAsync(string username, string password);",
+      "doc": null
+    },
+    {
+      "name": "AuthService",
+      "kind": "class",
+      "container": null,
+      "start_line": 12,
+      "end_line": 30,
+      "start_byte": 198,
+      "end_byte": 581,
+      "exported": 1,
+      "signature": "public class AuthService : IAuthService",
+      "doc": null
+    },
+    {
+      "name": "LoginAsync",
+      "kind": "method",
+      "container": null,
+      "start_line": 21,
+      "end_line": 24,
+      "start_byte": 361,
+      "end_byte": 486,
+      "exported": 1,
+      "signature": "public async Task<bool> LoginAsync(string username, string password)",
+      "doc": null
+    },
+    {
+      "name": "Validate",
+      "kind": "method",
+      "container": null,
+      "start_line": 26,
+      "end_line": 29,
+      "start_byte": 492,
+      "end_byte": 579,
+      "exported": 0,
+      "signature": "private bool Validate(string password)",
+      "doc": null
+    },
+    {
+      "name": "Helpers",
+      "kind": "class",
+      "container": null,
+      "start_line": 32,
+      "end_line": 38,
+      "start_byte": 583,
+      "end_byte": 706,
+      "exported": 1,
+      "signature": "public static class Helpers",
+      "doc": null
+    },
+    {
+      "name": "HashPassword",
+      "kind": "method",
+      "container": null,
+      "start_line": 34,
+      "end_line": 37,
+      "start_byte": 617,
+      "end_byte": 704,
+      "exported": 1,
+      "signature": "public static string HashPassword(string password)",
+      "doc": null
+    },
+    {
+      "name": "User",
+      "kind": "class",
+      "container": null,
+      "start_line": 40,
+      "end_line": 40,
+      "start_byte": 708,
+      "end_byte": 758,
+      "exported": 1,
+      "signature": "public record User(string Username, string Email);",
+      "doc": null
+    },
+    {
+      "name": "AuditEntry",
+      "kind": "class",
+      "container": null,
+      "start_line": 42,
+      "end_line": 46,
+      "start_byte": 760,
+      "end_byte": 840,
+      "exported": 0,
+      "signature": "internal struct AuditEntry",
+      "doc": null
+    },
+    {
+      "name": "Status",
+      "kind": "enum",
+      "container": null,
+      "start_line": 48,
+      "end_line": 52,
+      "start_byte": 842,
+      "end_byte": 890,
+      "exported": 1,
+      "signature": "public enum Status",
+      "doc": null
+    }
+  ],
+  "edges": [
+    {
+      "dst_name": "System",
+      "kind": "imports",
+      "raw_target": "System"
+    },
+    {
+      "dst_name": "System.Collections.Generic",
+      "kind": "imports",
+      "raw_target": "System.Collections.Generic"
+    },
+    {
+      "dst_name": "System.Threading.Tasks",
+      "kind": "imports",
+      "raw_target": "System.Threading.Tasks"
+    }
+  ],
+  "parseOk": true,
+  "parseError": null
+}

@@ -1,0 +1,86 @@
+{
+  "symbols": [
+    {
+      "name": "User",
+      "kind": "interface",
+      "container": null,
+      "start_line": 3,
+      "end_line": 7,
+      "start_byte": 50,
+      "end_byte": 125,
+      "exported": 1,
+      "signature": "interface User {",
+      "doc": null
+    },
+    {
+      "name": "AuthResult",
+      "kind": "type",
+      "container": null,
+      "start_line": 9,
+      "end_line": 9,
+      "start_byte": 134,
+      "end_byte": 208,
+      "exported": 1,
+      "signature": "type AuthResult = { ok: true; user: User } | { ok: false; error: string };",
+      "doc": null
+    },
+    {
+      "name": "hashPassword",
+      "kind": "function",
+      "container": null,
+      "start_line": 14,
+      "end_line": 16,
+      "start_byte": 255,
+      "end_byte": 389,
+      "exported": 1,
+      "signature": "function hashPassword(password: string, salt: string): string {",
+      "doc": null
+    },
+    {
+      "name": "AuthService",
+      "kind": "class",
+      "container": null,
+      "start_line": 18,
+      "end_line": 33,
+      "start_byte": 398,
+      "end_byte": 935,
+      "exported": 1,
+      "signature": "class AuthService {",
+      "doc": null
+    },
+    {
+      "name": "register",
+      "kind": "method",
+      "container": "AuthService",
+      "start_line": 21,
+      "end_line": 26,
+      "start_byte": 469,
+      "end_byte": 763,
+      "exported": 1,
+      "signature": "register(email: string, password: string): AuthResult {",
+      "doc": null
+    },
+    {
+      "name": "login",
+      "kind": "method",
+      "container": "AuthService",
+      "start_line": 28,
+      "end_line": 32,
+      "start_byte": 767,
+      "end_byte": 933,
+      "exported": 1,
+      "signature": "login(email: string): AuthResult {",
+      "doc": null
+    }
+  ],
+  "edges": [
+    {
+      "dst_name": "node:crypto",
+      "kind": "imports",
+      "raw_target": "node:crypto",
+      "src_sym": null
+    }
+  ],
+  "parseOk": true,
+  "parseError": null
+}

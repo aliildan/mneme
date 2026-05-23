@@ -74,6 +74,8 @@ The goal is **measurably fewer tokens per task and more accurate context selecti
 
 Every MCP call routes through `ensureFresh`: a bottom-up Merkle walk over blake3 content hashes that prunes unchanged subtrees in microseconds and reparses only what actually changed. The result is a stale-free index without polling, watchers, or git hooks.
 
+<img width="1657" height="618" alt="image" src="https://github.com/user-attachments/assets/b9963941-8187-490b-a404-f1c71572f69b" />
+
 ---
 
 ## Requirements

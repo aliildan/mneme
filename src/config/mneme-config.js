@@ -10,7 +10,7 @@ const DEFAULT_CONFIG = {
   indexer: {
     maxFileBytes: 1048576,
     ignore: [".git", "node_modules", "dist", "build", ".next", ".venv", "target", ".mneme"],
-    languages: ["typescript"],
+    languages: ["typescript", "python", "go", "rust", "php", "csharp"],
   },
   retrieval: {
     defaultTokenBudget: 6000,

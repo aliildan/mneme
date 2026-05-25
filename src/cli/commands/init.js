@@ -50,16 +50,19 @@ export async function init(args) {
   console.log(`  Edges:   ${counts.edges}`);
 
   // Print MCP install snippet
-  console.log(`\nAdd to your MCP config (~/.claude.json or project .mcp.json):`);
+  console.log(`\nAdd to your MCP config (~/.mcp.json or project .mcp.json):`);
   console.log(`\n{`);
   console.log(`  "mcpServers": {`);
   console.log(`    "mneme": {`);
   console.log(`      "command": "mneme",`);
-  console.log(`      "args": ["mcp"],`);
-  console.log(`      "env": { "MNEME_PROJECT_ROOT": "${root}" }`);
+  console.log(`      "args": ["mcp"]`);
   console.log(`    }`);
   console.log(`  }`);
   console.log(`}`);
+  console.log(`\nMneme auto-detects the project from the MCP server's cwd`);
+  console.log(`(walks up looking for .git / package.json / .mneme).`);
+  console.log(`To pin a specific root instead, add:`);
+  console.log(`  "env": { "MNEME_PROJECT_ROOT": "${root}" }`);
 
   // Install slash command
   try {

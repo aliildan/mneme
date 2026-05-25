@@ -183,21 +183,22 @@ The PostToolUse hook runs `mneme touch` after every Read/Edit/Write/Glob/Grep/Mu
 
 ### 3. Wire it into Claude Code
 
-Open `~/.claude.json` and paste the snippet `init` printed into the `mcpServers` block:
+Open `~/.mcp.json` (or a project-scoped `.mcp.json`) and paste the snippet `init` printed into the `mcpServers` block:
 
 ```jsonc
 {
   "mcpServers": {
     "mneme": {
       "command": "mneme",
-      "args": ["mcp"],
-      "env": { "MNEME_PROJECT_ROOT": "/abs/path/to/project" }
+      "args": ["mcp"]
     }
   }
 }
 ```
 
-> **One Mneme entry per project.** If you work in N repos, you get N `mcpServers` entries — each with its own `MNEME_PROJECT_ROOT`.
+> **One entry, all projects.** Mneme auto-detects the project from the MCP server's cwd — it walks up looking for `.mneme`, `.git`, `package.json`, `pyproject.toml`, `Cargo.toml`, or `go.mod`. Claude Code spawns the MCP server in the project you launched it in, so a single user-scoped entry serves every repo; each session gets its own process pointed at the right root.
+>
+> To pin a specific root instead (e.g. for tests or unusual layouts), add `"env": { "MNEME_PROJECT_ROOT": "/abs/path/to/project" }`.
 
 Restart Claude Code. In a session, run `/mcp` — you should see `mneme` listed as connected with 15 tools.
 

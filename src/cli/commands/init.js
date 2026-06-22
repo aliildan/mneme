@@ -71,6 +71,13 @@ export async function init(args) {
     console.log(`\n/mneme slash command installed to .claude/commands/mneme.md`);
   } catch {}
 
+  // Install skill
+  try {
+    const { installSkill } = await import("./install-skill.js");
+    await installSkill(root);
+    console.log(`\nmneme skill installed to .claude/skills/mneme/SKILL.md`);
+  } catch {}
+
   // Install user-global PostToolUse hook (default-on, opt-out via --no-hook)
   if (skipHook) {
     console.log(`\nSkipped global hook install (--no-hook).`);
@@ -88,6 +95,18 @@ export async function init(args) {
     } catch (err) {
       console.warn(`\nWarning: could not install global hook: ${err.message}`);
       console.warn(`You can still use mneme by leading with mneme_get_context.`);
+    }
+
+    try {
+      const { installSessionStartHook } = await import("../install-hook.js");
+      const s = await installSessionStartHook();
+      if (s.installed) {
+        console.log(`Installed SessionStart hook — project memory will be injected at session start.`);
+      } else {
+        console.log(`SessionStart hook already present (${s.reason}).`);
+      }
+    } catch (err) {
+      console.warn(`Warning: could not install SessionStart hook: ${err.message}`);
     }
   }
 }

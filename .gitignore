@@ -26,3 +26,7 @@ build/
 .claude/todos/
 .claude/statsig/
 .claude/shell-snapshots/
+
+# Local planning/spec docs (brainstorm + plan artifacts; not part of the package)
+docs/
+.superpowers/

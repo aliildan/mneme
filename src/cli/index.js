@@ -5,6 +5,7 @@ import { stats } from "./commands/stats.js";
 import { modelDiscovery } from "./commands/model-discovery.js";
 import { gc } from "./commands/gc.js";
 import { touch } from "./commands/touch.js";
+import { sessionContext } from "./commands/session-context.js";
 
 const HELP = `mneme — local context and memory engine for AI coding agents
 
@@ -19,7 +20,8 @@ Usage:
   mneme model <n>                Set discovery model by number
   mneme gc [--days <n>]          Soft-delete stale memories (manual)
   mneme touch                    Mark project index dirty (used by Claude Code hooks)
-  mneme uninstall-hook           Remove mneme's PostToolUse entry from ~/.claude/settings.json
+  mneme session-context          Print project-memory digest (used by the SessionStart hook)
+  mneme uninstall-hook           Remove mneme's PostToolUse and SessionStart hooks from ~/.claude/settings.json
   mneme help                     Show this help
 
 Storage:
@@ -40,10 +42,11 @@ async function mcp(args) {
 }
 
 async function uninstallHook() {
-  const { uninstallGlobalHook } = await import("./install-hook.js");
-  const r = await uninstallGlobalHook();
-  if (r.removed) console.log(`Removed mneme PostToolUse hook from ${r.settingsPath}`);
-  else console.log(`Nothing to remove (${r.reason})`);
+  const { uninstallGlobalHook, uninstallSessionStartHook } = await import("./install-hook.js");
+  const a = await uninstallGlobalHook();
+  const b = await uninstallSessionStartHook();
+  console.log(a.removed ? `Removed PostToolUse hook from ${a.settingsPath}` : `PostToolUse: nothing to remove (${a.reason})`);
+  console.log(b.removed ? `Removed SessionStart hook from ${b.settingsPath}` : `SessionStart: nothing to remove (${b.reason})`);
 }
 
 const COMMANDS = {
@@ -55,6 +58,7 @@ const COMMANDS = {
   model: modelDiscovery,
   gc,
   touch,
+  "session-context": sessionContext,
   "uninstall-hook": uninstallHook,
   help: () => console.log(HELP),
 };

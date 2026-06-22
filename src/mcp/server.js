@@ -28,10 +28,10 @@ import { handleSearchProjects } from "./tools/mneme-search-projects.js";
 import { handleGcMemory } from "./tools/mneme-gc-memory.js";
 import { handlePromoteMemory } from "./tools/mneme-promote-memory.js";
 
-const TOOLS = [
+export const TOOLS = [
   {
     name: "mneme_get_context",
-    description: "Retrieve ranked code context (symbols + snippets) for a task. Validates the symbol index first.",
+    description: "Find where functionality lives and how it works in this repo. Prefer this over grep/glob for 'where is X' / 'how does Y work' questions: returns ranked symbols + minimal code snippets within a token budget, revalidating the (auto-fresh) index first.",
     inputSchema: {
       type: "object",
       required: ["task"],
@@ -66,7 +66,7 @@ const TOOLS = [
   },
   {
     name: "mneme_record_memory",
-    description: "Store a verbatim decision, learning, gotcha, or todo. Body must be exact text — never paraphrased.",
+    description: "Store a verbatim decision, learning, gotcha, or todo for future sessions. Call this when you make a notable decision, hit a gotcha, or learn something durable about this repo. Body must be exact text — never paraphrased.",
     inputSchema: {
       type: "object",
       required: ["kind", "body"],
@@ -84,7 +84,7 @@ const TOOLS = [
   },
   {
     name: "mneme_recall_memory",
-    description: "Search project and global memory by query text, kind, scope, files, or tags.",
+    description: "Search project and global memory before re-deriving a past decision, convention, or fix. Query by text, kind, scope, files, or tags.",
     inputSchema: {
       type: "object",
       properties: {

@@ -21,7 +21,7 @@ Usage:
   mneme gc [--days <n>]          Soft-delete stale memories (manual)
   mneme touch                    Mark project index dirty (used by Claude Code hooks)
   mneme session-context          Print project-memory digest (used by the SessionStart hook)
-  mneme uninstall-hook           Remove mneme's PostToolUse entry from ~/.claude/settings.json
+  mneme uninstall-hook           Remove mneme's PostToolUse and SessionStart hooks from ~/.claude/settings.json
   mneme help                     Show this help
 
 Storage:

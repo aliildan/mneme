@@ -64,7 +64,6 @@ export function buildSessionDigest(memories, sc = {}) {
   for (const m of filtered) {
     if (picked.length >= maxItems) break;
     const normalizedBody = m.body.replace(/\s+/g, " ").trim();
-    if (!normalizedBody) continue;
     const tokens = Math.ceil(normalizedBody.length / 4);
     if (picked.length > 0 && usedTokens + tokens > budget) continue;
     const body = truncate(normalizedBody, perItemCharCap);

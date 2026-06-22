@@ -87,6 +87,7 @@ describe("sessionContext command (subprocess, isolated home)", () => {
       const res = spawnSync(process.execPath, [BIN, "session-context"], {
         env: { ...process.env, OPENCLAUDE_HOME: home, MNEME_PROJECT_ROOT: root },
         encoding: "utf8",
+        timeout: 10000,
       });
       assert.equal(res.status, 0);
       assert.match(res.stdout, /Project memory \(mneme\)/);
@@ -107,6 +108,7 @@ describe("sessionContext command (subprocess, isolated home)", () => {
       const res = spawnSync(process.execPath, [BIN, "session-context"], {
         env: { ...process.env, OPENCLAUDE_HOME: home, MNEME_PROJECT_ROOT: root },
         encoding: "utf8",
+        timeout: 10000,
       });
       assert.equal(res.status, 0);
       assert.equal(res.stdout, "");

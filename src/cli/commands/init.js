@@ -75,7 +75,7 @@ export async function init(args) {
   try {
     const { installSkill } = await import("./install-skill.js");
     await installSkill(root);
-    console.log(`mneme skill installed to .claude/skills/mneme/SKILL.md`);
+    console.log(`\nmneme skill installed to .claude/skills/mneme/SKILL.md`);
   } catch {}
 
   // Install user-global PostToolUse hook (default-on, opt-out via --no-hook)

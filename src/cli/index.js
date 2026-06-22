@@ -42,10 +42,11 @@ async function mcp(args) {
 }
 
 async function uninstallHook() {
-  const { uninstallGlobalHook } = await import("./install-hook.js");
-  const r = await uninstallGlobalHook();
-  if (r.removed) console.log(`Removed mneme PostToolUse hook from ${r.settingsPath}`);
-  else console.log(`Nothing to remove (${r.reason})`);
+  const { uninstallGlobalHook, uninstallSessionStartHook } = await import("./install-hook.js");
+  const a = await uninstallGlobalHook();
+  const b = await uninstallSessionStartHook();
+  console.log(a.removed ? `Removed PostToolUse hook from ${a.settingsPath}` : `PostToolUse: nothing to remove (${a.reason})`);
+  console.log(b.removed ? `Removed SessionStart hook from ${b.settingsPath}` : `SessionStart: nothing to remove (${b.reason})`);
 }
 
 const COMMANDS = {

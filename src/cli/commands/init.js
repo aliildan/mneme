@@ -89,5 +89,17 @@ export async function init(args) {
       console.warn(`\nWarning: could not install global hook: ${err.message}`);
       console.warn(`You can still use mneme by leading with mneme_get_context.`);
     }
+
+    try {
+      const { installSessionStartHook } = await import("../install-hook.js");
+      const s = await installSessionStartHook();
+      if (s.installed) {
+        console.log(`Installed SessionStart hook — project memory will be injected at session start.`);
+      } else {
+        console.log(`SessionStart hook already present (${s.reason}).`);
+      }
+    } catch (err) {
+      console.warn(`Warning: could not install SessionStart hook: ${err.message}`);
+    }
   }
 }

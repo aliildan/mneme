@@ -82,51 +82,23 @@ Every MCP call routes through `ensureFresh`: a bottom-up Merkle walk over blake3
 
 - **Node.js ≥ 20**
 - A C++ toolchain **only if** `better-sqlite3` lacks a prebuilt binary for your platform (uncommon on macOS, Linux, Windows x64)
-- *Optional:* [openclaude](https://github.com/aildan/openclaude) on `127.0.0.1:11436` for the discovery-model feature and the `/mneme` slash command
+- *Optional:* [openclaude](https://github.com/aliildan/openclaude) on `127.0.0.1:11436` for the discovery-model feature and the `/mneme` slash command
 
 ---
 
 ## Install
 
-The recommended way works on every platform — clone, then `npm link` to register `mneme` / `mn` globally:
+Install globally from npm — this registers the `mneme` and `mn` commands on your `PATH`:
 
 ```bash
-git clone https://github.com/aildan/mneme.git
-cd mneme
-npm install     # pulls better-sqlite3, tree-sitter wasms, MCP sdk
-npm test        # sanity check — 182 tests should pass in ~9s
-npm link        # registers `mneme` and `mn` on your PATH via npm's shim
+npm install -g @aliildan/mneme
 ```
 
-`npm link` works because `package.json` declares both bin names. On Windows it produces `.cmd` shims; on Unix it symlinks into your global `bin` directory. Either way, `mneme` works from any cwd.
+The package is scoped (`@aliildan/mneme`), but the commands stay `mneme` / `mn`, and they work from any directory on Linux, macOS, and Windows. `better-sqlite3` installs a prebuilt binary on common platforms; only if none exists for yours do you need a C++ toolchain to compile it.
 
-### Platform-specific notes
+Upgrade later with `npm install -g @aliildan/mneme@latest`.
 
-**Linux** — if you prefer a manual symlink over `npm link`:
-
-```bash
-git clone https://github.com/aildan/mneme.git ~/.openclaude/mneme-repo
-mkdir -p ~/.local/bin
-ln -s ~/.openclaude/mneme-repo/bin/mneme ~/.local/bin/mneme
-ln -s ~/.openclaude/mneme-repo/bin/mneme ~/.local/bin/mn
-# make sure ~/.local/bin is on $PATH
-```
-
-**macOS** — `npm link` is the path of least resistance. Manual install also works, but the symlink destination differs by setup:
-
-```bash
-git clone https://github.com/aildan/mneme.git ~/.openclaude/mneme-repo
-# Apple Silicon (Homebrew):
-ln -s ~/.openclaude/mneme-repo/bin/mneme /opt/homebrew/bin/mneme
-ln -s ~/.openclaude/mneme-repo/bin/mneme /opt/homebrew/bin/mn
-# Intel Macs:
-ln -s ~/.openclaude/mneme-repo/bin/mneme /usr/local/bin/mneme
-ln -s ~/.openclaude/mneme-repo/bin/mneme /usr/local/bin/mn
-```
-
-If you installed Node via `nvm`, `npm link` will land the shim in the active nvm-managed `bin` directory automatically.
-
-**Windows** — use `npm link` from PowerShell or `cmd.exe`. Manual symlinks need admin privileges or Developer Mode, so they're not recommended. The config file path is `%USERPROFILE%\.openclaude\mneme.json` and per-project indexes live under `%USERPROFILE%\.openclaude\mneme\projects\`. Everything else is path-agnostic.
+On Windows the config lives at `%USERPROFILE%\.openclaude\mneme.json` and per-project indexes under `%USERPROFILE%\.openclaude\mneme\projects\`; everything else is path-agnostic.
 
 > Mneme stores its index and memory databases under `~/.openclaude/mneme/` (or `%USERPROFILE%\.openclaude\mneme\` on Windows), sharing the home directory with openclaude.
 
@@ -136,23 +108,20 @@ If you installed Node via `nvm`, `npm link` will land the shim in the active nvm
 
 From zero to "Claude Code can use it" in five steps.
 
-### 1. Build &amp; install Mneme
+### 1. Install Mneme
 
 ```bash
-cd /path/to/mneme
-npm install          # pulls better-sqlite3, tree-sitter wasms, MCP sdk
-npm test             # sanity check — should print "182 pass"
-npm link             # puts `mneme` and `mn` on your PATH
+npm install -g @aliildan/mneme
 ```
 
 Verify it's on your PATH:
 
 ```bash
-which mneme          # /opt/homebrew/bin/mneme (or similar)
+which mneme          # /opt/homebrew/bin/mneme or your npm global bin
 mneme help
 ```
 
-> **Gotcha:** `npm link` requires your global npm prefix to be on PATH. If `which mneme` is empty, run `npm config get prefix` and add `<prefix>/bin` to your shell rc.
+> **Gotcha:** the `mneme` command must be on your PATH. If `which mneme` is empty, run `npm prefix -g` and make sure that directory's `bin` is on your shell PATH.
 
 ### 2. Index a project
 
@@ -204,7 +173,7 @@ Restart Claude Code. In a session, run `/mcp` — you should see `mneme` listed 
 
 ### 4. *(Optional)* Pick a discovery model
 
-Only if you also run [openclaude](https://github.com/aildan/openclaude) on `127.0.0.1:11436`:
+Only if you also run [openclaude](https://github.com/aliildan/openclaude) on `127.0.0.1:11436`:
 
 ```bash
 mneme model          # interactive numbered menu
@@ -403,5 +372,5 @@ Runs **182 tests across 36 suites in ~9 seconds**. The test list is explicit in 
 MIT — see [LICENSE](LICENSE).
 
 <p align="center">
-  <sub>Built as a companion to <a href="https://github.com/aildan/openclaude">openclaude</a>. Local-first. No telemetry.</sub>
+  <sub>Built as a companion to <a href="https://github.com/aliildan/openclaude">openclaude</a>. Local-first. No telemetry.</sub>
 </p>

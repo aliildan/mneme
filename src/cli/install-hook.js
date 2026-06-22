@@ -68,3 +68,44 @@ export async function uninstallGlobalHook() {
   await writeSettingsAtomic(path, settings);
   return { removed: true, settingsPath: path };
 }
+
+const SESSION_HOOK_ID = "mneme-session-context";
+const SESSION_COMMAND = "mneme session-context 2>/dev/null || true";
+
+export async function installSessionStartHook() {
+  const path = settingsPath();
+  let settings = await readSettings(path);
+  if (settings === null) {
+    await mkdir(join(homedir(), ".claude"), { recursive: true });
+    settings = {};
+  }
+  settings.hooks ??= {};
+  settings.hooks.SessionStart ??= [];
+
+  const existing = settings.hooks.SessionStart.find((h) => h?.__mneme === SESSION_HOOK_ID);
+  if (existing) return { installed: false, reason: "already-installed", settingsPath: path };
+
+  settings.hooks.SessionStart.push({
+    __mneme: SESSION_HOOK_ID,
+    hooks: [{ type: "command", command: SESSION_COMMAND }],
+  });
+  await writeSettingsAtomic(path, settings);
+  return { installed: true, settingsPath: path };
+}
+
+export async function uninstallSessionStartHook() {
+  const path = settingsPath();
+  const settings = await readSettings(path);
+  if (settings === null) return { removed: false, reason: "no-settings", settingsPath: path };
+
+  const hooks = settings.hooks?.SessionStart;
+  if (!Array.isArray(hooks) || hooks.length === 0) {
+    return { removed: false, reason: "no-hooks", settingsPath: path };
+  }
+  const filtered = hooks.filter((h) => h?.__mneme !== SESSION_HOOK_ID);
+  if (filtered.length === hooks.length) return { removed: false, reason: "not-installed", settingsPath: path };
+
+  settings.hooks.SessionStart = filtered;
+  await writeSettingsAtomic(path, settings);
+  return { removed: true, settingsPath: path };
+}

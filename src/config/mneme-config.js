@@ -19,6 +19,14 @@ const DEFAULT_CONFIG = {
     weights: { nameMatch: 1.0, pathToken: 0.3, hintFile: 0.8, graphHop: 0.4, recency: 0.2, exported: 0.1 },
   },
   memory: { globalDbPath: "$HOME/.openclaude/mneme/global.db" },
+  sessionContext: {
+    enabled: true,
+    tokenBudget: 800,
+    maxItems: 15,
+    kinds: ["todo", "decision", "gotcha"],
+    includeGlobal: false,
+    perItemCharCap: 280,
+  },
 };
 
 export const configPaths = { dir: OPENCLAUDE_HOME, file: CONFIG_FILE };

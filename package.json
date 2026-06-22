@@ -1,5 +1,5 @@
 {
-  "name": "mneme",
+  "name": "@aliildan/mneme",
   "version": "0.1.0",
   "description": "Local context and memory engine for AI coding agents — MCP server companion to openclaude.",
   "type": "module",
@@ -12,8 +12,32 @@
   },
   "files": ["bin", "src", "vendor", "slash-commands", "README.md"],
   "license": "MIT",
+  "author": "Ali Ildan <ali.ildan@gmail.com>",
+  "keywords": [
+    "mcp",
+    "claude-code",
+    "code-index",
+    "memory",
+    "context",
+    "tree-sitter",
+    "sqlite",
+    "ai-agents",
+    "openclaude"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aliildan/mneme.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aliildan/mneme/issues"
+  },
+  "homepage": "https://github.com/aliildan/mneme#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "test": "node --test test/parse-ts.test.js test/merkle-invalidate.test.js test/rank.test.js test/budget.test.js test/mcp-smoke.test.js test/memory-roundtrip.test.js test/global-scope-isolation.test.js test/promote-explicit.test.js test/openclaude-client.test.js test/discovery-runner.test.js test/discovery-opus-excluded.test.js test/outcomes.test.js test/graph-callers.test.js test/cross-project.test.js test/gc.test.js test/lang-python.test.js test/lang-go.test.js test/lang-rust.test.js test/lang-php.test.js test/lang-csharp.test.js test/multi-language-pipeline.test.js test/gitignore-respect.test.js test/touch-command.test.js test/dirty-marker.test.js test/install-hook.test.js"
+    "test": "node --test test/parse-ts.test.js test/merkle-invalidate.test.js test/rank.test.js test/budget.test.js test/mcp-smoke.test.js test/memory-roundtrip.test.js test/global-scope-isolation.test.js test/promote-explicit.test.js test/openclaude-client.test.js test/discovery-runner.test.js test/discovery-opus-excluded.test.js test/outcomes.test.js test/graph-callers.test.js test/cross-project.test.js test/gc.test.js test/lang-python.test.js test/lang-go.test.js test/lang-rust.test.js test/lang-php.test.js test/lang-csharp.test.js test/multi-language-pipeline.test.js test/gitignore-respect.test.js test/touch-command.test.js test/dirty-marker.test.js test/install-hook.test.js",
+    "prepublishOnly": "npm test"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",

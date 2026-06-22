@@ -5,6 +5,7 @@ import { stats } from "./commands/stats.js";
 import { modelDiscovery } from "./commands/model-discovery.js";
 import { gc } from "./commands/gc.js";
 import { touch } from "./commands/touch.js";
+import { sessionContext } from "./commands/session-context.js";
 
 const HELP = `mneme — local context and memory engine for AI coding agents
 
@@ -19,6 +20,7 @@ Usage:
   mneme model <n>                Set discovery model by number
   mneme gc [--days <n>]          Soft-delete stale memories (manual)
   mneme touch                    Mark project index dirty (used by Claude Code hooks)
+  mneme session-context          Print project-memory digest (used by the SessionStart hook)
   mneme uninstall-hook           Remove mneme's PostToolUse entry from ~/.claude/settings.json
   mneme help                     Show this help
 
@@ -55,6 +57,7 @@ const COMMANDS = {
   model: modelDiscovery,
   gc,
   touch,
+  "session-context": sessionContext,
   "uninstall-hook": uninstallHook,
   help: () => console.log(HELP),
 };

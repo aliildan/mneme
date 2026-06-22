@@ -55,3 +55,65 @@ describe("buildSessionDigest", () => {
     assert.equal((out.match(/^- /gm) || []).length, 1);
   });
 });
+
+import { mkdtemp, rm, realpath } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+
+describe("sessionContext command", () => {
+  async function withProject(run) {
+    const home = await mkdtemp(join(tmpdir(), "mneme-sc-home-"));
+    const proj = await mkdtemp(join(tmpdir(), "mneme-sc-proj-"));
+    const prevHome = process.env.OPENCLAUDE_HOME;
+    const prevRoot = process.env.MNEME_PROJECT_ROOT;
+    process.env.OPENCLAUDE_HOME = home;
+    process.env.MNEME_PROJECT_ROOT = await realpath(proj);
+    let out = "";
+    const origWrite = process.stdout.write.bind(process.stdout);
+    process.stdout.write = (s) => { out += s; return true; };
+    try {
+      await run({ home, root: process.env.MNEME_PROJECT_ROOT, getOut: () => out });
+    } finally {
+      process.stdout.write = origWrite;
+      if (prevHome === undefined) delete process.env.OPENCLAUDE_HOME; else process.env.OPENCLAUDE_HOME = prevHome;
+      if (prevRoot === undefined) delete process.env.MNEME_PROJECT_ROOT; else process.env.MNEME_PROJECT_ROOT = prevRoot;
+      await rm(home, { recursive: true, force: true });
+      await rm(proj, { recursive: true, force: true });
+    }
+  }
+
+  test("emits a digest when the project is indexed and has memory", async () => {
+    await withProject(async ({ root, getOut }) => {
+      const { projectHash } = await import("../src/project/project-hash.js");
+      const { projectDbPath } = await import("../src/config/paths.js");
+      const { openProjectDb } = await import("../src/db/open.js");
+      const { migrateProjectDb } = await import("../src/db/migrate.js");
+      const { recordMemory } = await import("../src/memory/record.js");
+      const { sessionContext } = await import("../src/cli/commands/session-context.js");
+
+      const hash = projectHash(root);
+      const dbPath = projectDbPath(hash);
+      const db = await openProjectDb(hash, dbPath);
+      migrateProjectDb(db);
+      const gdb = join(process.env.OPENCLAUDE_HOME, "mneme", "global.db");
+      await recordMemory(db, gdb, { kind: "todo", body: "ship session-context hook" });
+      await recordMemory(db, gdb, { kind: "decision", body: "inject memory at SessionStart" });
+      await recordMemory(db, gdb, { kind: "learning", body: "learning-should-not-appear" });
+
+      await sessionContext();
+      const out = getOut();
+      assert.match(out, /Project memory \(mneme\)/);
+      assert.match(out, /ship session-context hook/);
+      assert.match(out, /inject memory at SessionStart/);
+      assert.doesNotMatch(out, /learning-should-not-appear/);
+    });
+  });
+
+  test("emits nothing when the project is not indexed", async () => {
+    await withProject(async ({ getOut }) => {
+      const { sessionContext } = await import("../src/cli/commands/session-context.js");
+      await sessionContext();
+      assert.equal(getOut(), "");
+    });
+  });
+});

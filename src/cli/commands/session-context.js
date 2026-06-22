@@ -1,5 +1,51 @@
+import Database from "better-sqlite3";
+import { stat } from "node:fs/promises";
+import { detectRoot } from "../../project/detect-root.js";
+import { projectHash } from "../../project/project-hash.js";
+import { projectDbPath } from "../../config/paths.js";
+import { loadConfig, interpolateEnv } from "../../config/mneme-config.js";
+import { listMemories } from "../../memory/recall.js";
+
 const KIND_ORDER = { todo: 0, decision: 1, gotcha: 2, learning: 3 };
 const KIND_LABELS = { todo: "Open todos", decision: "Decisions", gotcha: "Gotchas", learning: "Learnings" };
+
+export async function sessionContext() {
+  try {
+    const config = await loadConfig();
+    const sc = config.sessionContext ?? {};
+    if (sc.enabled === false) return;
+
+    const startDir = process.env.CLAUDE_PROJECT_DIR || process.cwd();
+    let root;
+    try { root = await detectRoot(startDir); } catch { return; }
+    let hash;
+    try { hash = projectHash(root); } catch { return; }
+
+    const dbPath = projectDbPath(hash);
+    try { await stat(dbPath); } catch { return; } // not indexed → silent no-op
+
+    const includeGlobal = sc.includeGlobal === true;
+    const globalDbPath = interpolateEnv(config.memory?.globalDbPath ?? "");
+    const maxItems = sc.maxItems ?? 15;
+
+    let rows = [];
+    const db = new Database(dbPath, { readonly: true, fileMustExist: true });
+    try {
+      rows = await listMemories(db, globalDbPath, {
+        scope: includeGlobal ? "any" : "project",
+        kind: "any",
+        limit: maxItems * 4,
+      });
+    } finally {
+      db.close();
+    }
+
+    const digest = buildSessionDigest(rows, sc);
+    if (digest) process.stdout.write(digest);
+  } catch {
+    // Never break session start.
+  }
+}
 
 export function buildSessionDigest(memories, sc = {}) {
   const kinds = sc.kinds ?? ["todo", "decision", "gotcha"];

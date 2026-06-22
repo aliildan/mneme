@@ -71,6 +71,13 @@ export async function init(args) {
     console.log(`\n/mneme slash command installed to .claude/commands/mneme.md`);
   } catch {}
 
+  // Install skill
+  try {
+    const { installSkill } = await import("./install-skill.js");
+    await installSkill(root);
+    console.log(`mneme skill installed to .claude/skills/mneme/SKILL.md`);
+  } catch {}
+
   // Install user-global PostToolUse hook (default-on, opt-out via --no-hook)
   if (skipHook) {
     console.log(`\nSkipped global hook install (--no-hook).`);
